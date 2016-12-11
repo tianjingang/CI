@@ -1,0 +1,37 @@
+<base href="<?php echo base_url('public').'/'?>"/>
+<script src="js/jquery-1.7.2.min.js"></script>
+<script>
+    var show='<?php echo site_url("index/show")?>';
+</script>
+<form>
+    <table>
+        <tr>
+            <td><textarea name="j_content" cols="30" rows="5" class="j_content"></textarea></td>
+            <td><?php echo $_SESSION['username']?></td>
+        </tr>
+        <?php foreach($list as $key=>$val){?>
+        <tr>
+            <td><?php echo $val['j_time']?></td><td><?php echo $val['j_content']?></td>
+        </tr>
+         <?php }?>
+    </table>
+</form>
+<script>
+    $(function(){
+        $('.j_content').blur(function(){
+             var j_content=$(this).val();
+            $.ajax({
+                 type:'post',
+                url:show,
+                data:{
+                    j_content:j_content
+                },
+                success:function(data){
+                   // alert(data);
+                    location.href=show;
+
+                }
+            });
+        });
+    });
+</script>
